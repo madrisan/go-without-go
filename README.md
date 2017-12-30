@@ -36,8 +36,10 @@ If you prefer, you can define the following two command aliases (in the file `~/
 
 and run and compile your Go project this way:
 
-    . ~/.bashrc
+    sudo docker-compose build golang_alpine
     
+    . ~/.bashrc
+
     dgo run helloworld.go
     
     dgo build helloworld.go

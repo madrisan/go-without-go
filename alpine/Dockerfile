@@ -12,6 +12,10 @@ RUN mkdir -p \
     "$GOPATH/pkg" \
     "$GOPATH/src"
 
+RUN set -eux; \
+    apk add --no-cache --virtual .build-deps \
+        git
+
 WORKDIR /source
 
 ENTRYPOINT ["/usr/local/bin/go"]
