@@ -1,3 +1,5 @@
+<img width="15%" src="https://raw.github.com/golang-samples/gopher-vector/master/gopher.png"/>
+
 # Go without (installing) go
 
 This small Docker project was started to run go without installing go.
