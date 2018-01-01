@@ -17,9 +17,13 @@ These are some possible reasons:
 
     make go run /source/helloworld.go
 
+or (because `/source` is the workdir of the Docker container)
+
+    make go run helloworld.go
+
 ## Compiling a program in a container
 
-    make go build /source/helloworld.go
+    make go build helloworld.go
     ./source/helloworld
 
 Note that [Docker-CE][docker-ce] and [Docker Compose][docker-compose] must be installed in order
@@ -34,10 +38,14 @@ and run and compile your Go project this way:
 
     . ~/.bashrc
     
-    dgo run /source/helloworld.go
+    dgo run helloworld.go
     
-    dgo build /source/helloworld.go
+    dgo build helloworld.go
     ./souces/helloworld
+
+or format the source code with the tool `gofmt`:
+
+    dgofmt -w helloworld.go
 
 [docker-ce]: https://www.docker.com/community-edition/
 [docker-compose]: https://docs.docker.com/compose/
