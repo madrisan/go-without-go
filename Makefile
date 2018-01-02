@@ -3,9 +3,10 @@
 #
 # Usage:
 #    make go
-#    make go run /source/helloworld.go
-#    make go build /source/helloworld.go
-#    make gofmt /source/helloworld.go
+#    make go run helloworld.go
+#    make go build helloworld.go && ./source/helloworld
+#    make go "get -v github.com/golang/example/hello/..." && ./bin/hello
+#    make gofmt helloworld.go
 
 COMPOSE = $(shell command -v docker-compose 2>/dev/null)
 ifndef COMPOSE

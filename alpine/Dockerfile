@@ -6,7 +6,9 @@ MAINTAINER "Davide Madrisan" <d.madrisan@gmail.com>
 WORKDIR /usr/local
 COPY --from=compiler /usr/local/go .
 
+ENV GOPATH /go
 ENV PATH $GOPATH/bin:$PATH
+
 RUN mkdir -p \
     "$GOPATH/bin" \
     "$GOPATH/pkg" \

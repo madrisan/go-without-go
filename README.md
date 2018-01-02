@@ -26,6 +26,9 @@ or (because `/source` is the workdir of the Docker container)
     make go build helloworld.go
     ./source/helloworld
 
+    make go "get -v github.com/golang/example/hello/..."
+    ./bin/hello
+
 Note that [Docker-CE][docker-ce] and [Docker Compose][docker-compose] must be installed in order
 the make commands to work.
 
