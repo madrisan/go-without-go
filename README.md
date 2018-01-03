@@ -29,18 +29,16 @@ or (because `/source` is the workdir of the Docker container)
     make go "get -v github.com/golang/example/hello/..."
     ./bin/hello
 
-Note that [Docker-CE][docker-ce] and [Docker Compose][docker-compose] must be installed in order
-the make commands to work.
+Note that [Docker-CE][docker-ce] must be installed in order the make commands to work.
 
 If you prefer, you can define the following two command aliases (in the file `~/.bashrc` for instance)
 
-    alias dgo="sudo docker-compose run --rm golang_alpine"
-    alias dgofmt="sudo docker-compose run --rm --entrypoint gofmt golang_alpine"
+    alias dgo="sudo docker run -v $PWD/source:/source -v $PWD/bin:/go/bin --rm gowithoutgo_alpine"
+    alias dgofmt="sudo docker run -v $PWD/source:/source -v $PWD/bin:/go/bin --rm --entrypoint gofmt gowithoutgo_alpine"
 
 and run and compile your Go project this way:
 
-    sudo docker-compose build golang_alpine
-    
+    make image
     . ~/.bashrc
 
     dgo run helloworld.go
@@ -50,7 +48,7 @@ and run and compile your Go project this way:
 
 or format the source code with the tool `gofmt`:
 
+    dgofmt helloworld.go
     dgofmt -w helloworld.go
 
 [docker-ce]: https://www.docker.com/community-edition/
-[docker-compose]: https://docs.docker.com/compose/

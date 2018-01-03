@@ -8,25 +8,29 @@
 #    make go "get -v github.com/golang/example/hello/..." && ./bin/hello
 #    make gofmt helloworld.go
 
-COMPOSE = $(shell command -v docker-compose 2>/dev/null)
-ifndef COMPOSE
-        $(error "please install docker-compose or adjust the PATH environment")
+DOCKER = $(shell command -v docker 2>/dev/null)
+ifndef DOCKER
+        $(error "please install docker-ce or adjust the PATH environment")
 endif
-IMAGE = golang_alpine
+
+IMAGE = gowithoutgo_alpine
+PWD = $(shell pwd)
+VOLUMES = -v $(PWD)/source:/source -v $(PWD)/bin:/go/bin
+
 GOFMT = /usr/local/bin/gofmt
 
-dockerbuild: $(COMPOSE)
-	@sudo $(COMPOSE) build $(IMAGE)
+image: $(DOCKER)
+	@sudo $(DOCKER) image build -t $(IMAGE) alpine
 
-go: dockerbuild
+go: image
 	@args='$(filter-out $@,$(MAKECMDGOALS))'; \
-	sudo $(COMPOSE) run --rm $(IMAGE) $$args
+	sudo $(DOCKER) run $(VOLUMES) --rm $(IMAGE) $$args
 
-gofmt: dockerbuild
-	@args := $(filter-out $@,$(MAKECMDGOALS)); \
-	sudo $(COMPOSE) run --rm --entrypoint $(GOFMT) $(IMAGE) $$args
+gofmt: image
+	@args='$(filter-out $@,$(MAKECMDGOALS))'; \
+	sudo $(DOCKER) run $(VOLUMES) --rm --entrypoint=$(GOFMT) $(IMAGE) $$args
 
 %:
 	@:
 
-.PHONY: dockerbuild
+.PHONY: image
