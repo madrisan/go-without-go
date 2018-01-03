@@ -10,10 +10,14 @@ IMAGE = gowithoutgo_alpine
 PWD = $(shell pwd)
 VOLUMES = -v $(PWD)/source:/source -v $(PWD)/bin:/go/bin
 
+ifdef QUIET
+        DOCKER_OPTS += --quiet
+endif
+
 GOFMT = /usr/local/bin/gofmt
 
 image: $(DOCKER)
-	@sudo $(DOCKER) image build -t $(IMAGE) alpine
+	@sudo $(DOCKER) build -t $(IMAGE) $(DOCKER_OPTS) alpine
 
 go: image
 	@args='$(filter-out $@,$(MAKECMDGOALS))'; \
@@ -28,7 +32,10 @@ help:
 	@echo 'Copyright (c) 2017 Davide Madrisan <davide.madrisan@gmail.com>'
 	@echo
 	@echo 'Usage:'
-	@echo ' - Print the help message'
+	@echo ' - Build the Docker container for Go development'
+	@echo '    make image'
+	@echo
+	@echo ' - Print the go help message'
 	@echo '    make go'
 	@echo
 	@echo ' - Go run / build / get commands'
@@ -42,6 +49,8 @@ help:
 	@echo ' - Cross compilation:'
 	@echo '    make go CROSSCOMPILE="-e GOOS=darwin -e GOARCH=amd64" build helloworld.go'
 	@echo
+	@echo ' Run in quiet mode'
+	@echo '    You can replace "make" by "make QUIET=1" to reduce the output verbosity.'
 
 %:
 	@:

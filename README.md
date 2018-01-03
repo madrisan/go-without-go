@@ -13,6 +13,10 @@ These are some possible reasons:
  * we may want to cross compile a Go project;
  * we may want to test different versions of the Go compiler.
 
+## Pre-requirements
+
+[Docker-CE][docker-ce] must be installed and the `docker` daemon running.
+
 ## Running a program in a container
 
     make go run /source/helloworld.go
@@ -20,6 +24,8 @@ These are some possible reasons:
 or (because `/source` is the workdir of the Docker container)
 
     make go run helloworld.go
+
+You can replace `make` by `make QUIET=1` to reduce the verbosity of the output messages.
 
 ## Compiling a program in a container
 
@@ -32,8 +38,6 @@ or (because `/source` is the workdir of the Docker container)
 ## Help message
 
     make help
-
-Note that [Docker-CE][docker-ce] must be installed in order the make commands to work.
 
 If you prefer, you can define the following two command aliases (in the file `~/.bashrc` for instance)
 
@@ -52,7 +56,6 @@ and run and compile your Go project this way:
 
 or format the source code with the tool `gofmt`:
 
-    dgofmt helloworld.go
     dgofmt -w helloworld.go
 
 [docker-ce]: https://www.docker.com/community-edition/
