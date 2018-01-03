@@ -2,11 +2,18 @@
 # Copyright (c) 2017 Davide Madrisan <davide.madrisan@gmail.com>
 #
 # Usage:
-#    make go
-#    make go run helloworld.go
-#    make go build helloworld.go && ./source/helloworld
-#    make go "get -v github.com/golang/example/hello/..." && ./bin/hello
-#    make gofmt helloworld.go
+#  - Help message
+#     make go
+#  - Go run / build / get commands
+#     make go run helloworld.go
+#     make go build helloworld.go && ./source/helloworld
+#     make go "get -v github.com/golang/example/hello/..." && ./bin/hello
+#  - Run the go code formatter 'gofmt'
+#     make gofmt helloworld.go
+#  - Cross compile a source code:
+#     make go CROSSCOMPILE='-e GOOS=darwin -e GOARCH=amd64' build helloworld.go
+#     file source/helloworld
+#       # source/helloworld: Mach-O 64-bit x86_64 executable, flags:<NOUNDEFS>
 
 DOCKER = $(shell command -v docker 2>/dev/null)
 ifndef DOCKER
@@ -24,7 +31,7 @@ image: $(DOCKER)
 
 go: image
 	@args='$(filter-out $@,$(MAKECMDGOALS))'; \
-	sudo $(DOCKER) run $(VOLUMES) --rm $(IMAGE) $$args
+	sudo $(DOCKER) run $(CROSSCOMPILE) $(VOLUMES) --rm $(IMAGE) $$args
 
 gofmt: image
 	@args='$(filter-out $@,$(MAKECMDGOALS))'; \
