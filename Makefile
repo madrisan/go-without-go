@@ -1,19 +1,5 @@
 # Developing in Golang inside Docker containers
 # Copyright (c) 2017 Davide Madrisan <davide.madrisan@gmail.com>
-#
-# Usage:
-#  - Help message
-#     make go
-#  - Go run / build / get commands
-#     make go run helloworld.go
-#     make go build helloworld.go && ./source/helloworld
-#     make go "get -v github.com/golang/example/hello/..." && ./bin/hello
-#  - Run the go code formatter 'gofmt'
-#     make gofmt helloworld.go
-#  - Cross compile a source code:
-#     make go CROSSCOMPILE='-e GOOS=darwin -e GOARCH=amd64' build helloworld.go
-#     file source/helloworld
-#       # source/helloworld: Mach-O 64-bit x86_64 executable, flags:<NOUNDEFS>
 
 DOCKER = $(shell command -v docker 2>/dev/null)
 ifndef DOCKER
@@ -36,6 +22,26 @@ go: image
 gofmt: image
 	@args='$(filter-out $@,$(MAKECMDGOALS))'; \
 	sudo $(DOCKER) run $(VOLUMES) --rm --entrypoint=$(GOFMT) $(IMAGE) $$args
+
+help:
+	@echo 'Developing in Golang inside Docker containers.'
+	@echo 'Copyright (c) 2017 Davide Madrisan <davide.madrisan@gmail.com>'
+	@echo
+	@echo 'Usage:'
+	@echo ' - Print the help message'
+	@echo '    make go'
+	@echo
+	@echo ' - Go run / build / get commands'
+	@echo '    make go run helloworld.go'
+	@echo '    make go build helloworld.go && ./source/helloworld'
+	@echo '    make go "get -v github.com/golang/example/hello/..." && ./bin/hello'
+	@echo
+	@echo ' - Execute the code formatter "gofmt"'
+	@echo '    make gofmt helloworld.go'
+	@echo
+	@echo ' - Cross compilation:'
+	@echo '    make go CROSSCOMPILE="-e GOOS=darwin -e GOARCH=amd64" build helloworld.go'
+	@echo
 
 %:
 	@:

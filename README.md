@@ -29,6 +29,10 @@ or (because `/source` is the workdir of the Docker container)
     make go "get -v github.com/golang/example/hello/..."
     ./bin/hello
 
+## Help message
+
+    make help
+
 Note that [Docker-CE][docker-ce] must be installed in order the make commands to work.
 
 If you prefer, you can define the following two command aliases (in the file `~/.bashrc` for instance)
