@@ -68,3 +68,12 @@ or format the source code with the tool `gofmt`:
     dgofmt -w helloworld.go
 
 [docker-ce]: https://www.docker.com/community-edition/
+
+## Go language resources
+
+Some resources for learning the Go language:
+
+  * Tour of Go (https://tour.golang.org/welcome/1)
+  * Go by Example (https://gobyexample.com/)
+  * Learning Go online book (https://www.miek.nl/go/)
+  *  The Go Programming Language Specification (https://golang.org/ref/spec)
