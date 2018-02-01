@@ -37,9 +37,9 @@ You can replace `make` by `make QUIET=1` to reduce the verbosity of the output m
 
 ## Cross compilation
 
-    make go CROSSCOMPILE="-e GOOS=darwin -e GOARCH=amd64" build helloworld.go
+    make go GOENV="-e GOOS=darwin -e GOARCH=amd64" build helloworld.go
       >> ./source/helloworld
-    make go CROSSCOMPILE="-e GOOS=darwin -e GOARCH=amd64" "get -v github.com/golang/example/hello/..."
+    make go GOENV="-e GOOS=darwin -e GOARCH=amd64" "get -v github.com/golang/example/hello/..."
       >> bin/darwin_amd64/hello
     file bin/darwin_amd64/hello
       >> bin/darwin_amd64/hello: Mach-O 64-bit x86_64 executable, flags:<NOUNDEFS>

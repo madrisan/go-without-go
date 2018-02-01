@@ -21,7 +21,7 @@ image: $(DOCKER)
 
 go: image
 	@args='$(filter-out $@,$(MAKECMDGOALS))'; \
-	sudo $(DOCKER) run $(CROSSCOMPILE) $(VOLUMES) --rm $(IMAGE) $$args
+	sudo $(DOCKER) run $(GOENV) $(VOLUMES) --rm $(IMAGE) $$args
 
 gofmt: image
 	@args='$(filter-out $@,$(MAKECMDGOALS))'; \
@@ -38,6 +38,10 @@ help:
 	@echo ' - Print the go help message'
 	@echo '    make go'
 	@echo
+	@echo ' - Go environment'
+	@echo '    make go env'
+	@echo '    make go GOENV="-e CGO_ENABLED=0" env'
+	@echo
 	@echo ' - Go run / build / get commands'
 	@echo '    make go run helloworld.go'
 	@echo '    make go build helloworld.go && ./source/helloworld'
@@ -47,7 +51,10 @@ help:
 	@echo '    make gofmt helloworld.go'
 	@echo
 	@echo ' - Cross compilation:'
-	@echo '    make go CROSSCOMPILE="-e GOOS=darwin -e GOARCH=amd64" build helloworld.go'
+	@echo '    make go GOENV="-e GOOS=darwin -e GOARCH=amd64" build helloworld.go'
+	@echo '     # --> ./source/helloworld'
+	@echo '    make go GOENV="-e GOOS=darwin -e GOARCH=amd64" "get -v github.com/golang/example/hello/..."'
+	@echo '     # --> ./bin/darwin_amd64/hello'
 	@echo
 	@echo ' Run in quiet mode'
 	@echo '    You can replace "make" by "make QUIET=1" to reduce the output verbosity.'
